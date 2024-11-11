@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Page</title>
+    <link rel="stylesheet" href="style1.css">
+    <style>body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #007BFF;
+        color: white;
+        padding: 20px;
+    }
+    header input[type="file"] {
+        display: none;
+    }
+    header label {
+        cursor: pointer;
+        background-color: #0056b3;
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+    #profile-pic {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+    }
+    .container {
+        padding: 20px;
+    }
+    #code-area {
+        width: 100%;
+        height: 200px;
+        margin-bottom: 20px;
+    }
+    .search-container {
+        margin-bottom: 20px;
+    }
+    .highlight {
+        background-color: red;
+    }
+    .notebook {
+        width: 100%;
+        height: 200px;
+        margin-bottom: 20px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+    .notebook .code-block {
+        border: 2px solid green;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .code-block-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    canvas {
+        max-width: 100%;
+    }
+    #datetime {
+        text-align: center;
+        margin-top: 20px;
+    }
+    #store-code {
+        background-color: gold;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+    .yellow-button {
+        background-color: yellow;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+    .help-section {
+        background-color: #f4f4f4;
+        padding: 20px;
+        border: 1px solid #ddd;
+        margin-top: 20px;
+    }
+    .contact-info {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #0056b3;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        transition: transform 1s;
+    }
+    .contact-info.show {
+        transform: translateY(calc(100vh - 100px));
+    }
+    .contact-info.hide {
+        transform: translateY(0);
+    }
+    let codeCount = 0;
+const codeData = [];
+
+// Load Profile Image
+function loadProfilePic(event) {
+    var output = document.getElementById('profile-pic');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+        URL.revokeObjectURL(output.src); // Free memory
+    }
+}
+
+// Store Code
+function storeCode() {
+    const codeArea = document.getElementById('code-area');
+    const notebook = document.getElementById('notebook');
+    codeCount += 1;
+    const code = codeArea.value;
+    codeData.push({ code, date: new Date() });
+    
+    const codeBlock = document.createElement('div');
+    codeBlock.classList.add('code-block');
+    const title = document.createElement('div');
+    title.classList.add('code-block-title');
+    title.textContent = `Code_${codeCount}`;
+    codeBlock.appendChild(title);
+    
+    const pre = document.createElement('pre');
+    pre.textContent = code;
+    codeBlock.appendChild(pre);
+    
+    notebook.appendChild(codeBlock);
+    codeArea.value = '';
+    
+    updateChart();
+}
+
+// Search in Code
+function searchInCode() {
+    const searchInput = document.getElementById('search-input').value;
+    const notebook = document.getElementById('notebook');
+    const regex = new RegExp(searchInput, 'gi');
+    notebook.innerHTML = notebook.innerHTML.replace(/<\/?span[^>]*>/gi, ''); // Remove old highlights
+
+    notebook.innerHTML = notebook.innerHTML.replace(regex, (match) => `<span class="highlight">${match}</span>`);
+}
+
+// Chart.js Setup
+const ctx = document.getElementById('coding-progress-chart').getContext('2d');
+const codingProgressChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        datasets: [{
+            label: 'Coding Progress',
+            data: new Array(12).fill(0),
+            backgroundColor: 'rgba(0, 123, 255, 0.2)',
+            borderColor: 'rgba(0, 123, 255, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Lines of Code (in hundreds)'
+                }
+            }
+        }
+    }
+});
+
+function updateChart() {
+    const progressData = new Array(12).fill(0);
+    codeData.forEach(({ date }) => {
+        const month = date.getMonth();
+        progressData[month] += 1;
+    });
+
+    codingProgressChart.data.datasets[0].data = progressData.map(count => count * 0.5);
+    codingProgressChart.update();
+}
+
+// Set up date and time display
+const updateDateTime = () => {
+    const now = new Date();
+    document.getElementById('datetime').innerHTML = now.toLocaleString('en-GB', { timeZone: 'Africa/Nairobi' });
+};
+setInterval(updateDateTime, 1000);
+
+// Save chart as image at the end of the year
+const saveChartAsImage = () => {
+    const link = document.createElement('a');
+    link.download = 'coding-progress.png';
+    link.href = codingProgressChart.toBase64Image();
+    link.click();
+};
+
+// Reset chart data and save image at the end of the year
+const checkEndOfYear = () => {
+    const now = new Date();
+    if (now.getMonth() === 0 && now.getDate() === 1 && now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) {
+        saveChartAsImage();
+        codeData.length = 0; // Clear code data
+        codingProgressChart.data.datasets[0].data = new Array(12).fill(0);
+        codingProgressChart.update();
+    }
+};
+setInterval(checkEndOfYear, 1000);
+
+// Contact information movement
+window.addEventListener('scroll', () => {
+    const contactInfo = document.getElementById('contact-info');
+    if (window.scrollY > 100) {
+        contactInfo.classList.add('show');
+        contactInfo.classList.remove('hide');
+    } else {
+        contactInfo.classList.add('hide');
+        contactInfo.classList.remove('show');
+    }
+});
+
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <label for="profile-upload">Upload Profile Image</label>
+            <input type="file" id="profile-upload" accept="image/*" onchange="loadProfilePic(event)">
+            <img id="profile-pic" src="" alt="Profile Image">
+        </div>
+        <div>
+            <h1 id="name">Your Name</h1>
+            <p>Professional Title</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <textarea id="code-area" placeholder="Paste your code here..."></textarea>
+        <button id="store-code" onclick="storeCode()">Store Code</button>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search in code">
+            <button onclick="searchInCode()">Search</button>
+        </div>
+        <div class="notebook" id="notebook">
+            <!-- Stored code will be appended here -->
+        </div>
+        <canvas id="coding-progress-chart"></canvas>
+    </div>
+    
+    <div id="datetime"></div>
+
+    <div class="help-section">
+        <h2>Help Section</h2>
+        <p>For assistance, please refer to the following instructions:</p>
+        <ul>
+            <li>Upload your profile image using the 'Upload Profile Image' button.</li>
+            <li>Paste your code in the textarea and click 'Store Code' to save it.</li>
+            <li>Use the search functionality to highlight specific code snippets.</li>
+            <li>Monitor your coding progress using the graph.</li>
+            <li>Contact us at any time using the contact information provided.</li>
+        </ul>
+    </div>
+
+    <div class="contact-info hide" id="contact-info">
+        <p>Contact Information:</p>
+        <p>Email: example@example.com</p>
+        <p>Phone: +1234567890</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script >
+        let codeCount = 0;
+const codeData = [];
+
+// Load Profile Image
+function loadProfilePic(event) {
+    var output = document.getElementById('profile-pic');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+        URL.revokeObjectURL(output.src); // Free memory
+    }
+}
+
+// Store Code
+function storeCode() {
+    const codeArea = document.getElementById('code-area');
+    const notebook = document.getElementById('notebook');
+    codeCount += 1;
+    const code = codeArea.value;
+    codeData.push({ code, date: new Date() });
+    
+    const codeBlock = document.createElement('div');
+    codeBlock.classList.add('code-block');
+    const title = document.createElement('div');
+    title.classList.add('code-block-title');
+    title.textContent = `Code_${codeCount}`;
+    codeBlock.appendChild(title);
+    
+    const pre = document.createElement('pre');
+    pre.textContent = code;
+    codeBlock.appendChild(pre);
+    
+    notebook.appendChild(codeBlock);
+    codeArea.value = '';
+    
+    updateChart();
+}
+
+// Search in Code
+function searchInCode() {
+    const searchInput = document.getElementById('search-input').value;
+    const notebook = document.getElementById('notebook');
+    const regex = new RegExp(searchInput, 'gi');
+    notebook.innerHTML = notebook.innerHTML.replace(/<\/?span[^>]*>/gi, ''); // Remove old highlights
+
+    notebook.innerHTML = notebook.innerHTML.replace(regex, (match) => `<span class="highlight">${match}</span>`);
+}
+
+// Chart.js Setup
+const ctx = document.getElementById('coding-progress-chart').getContext('2d');
+const codingProgressChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        datasets: [{
+            label: 'Coding Progress',
+            data: new Array(12).fill(0),
+            backgroundColor: 'rgba(0, 123, 255, 0.2)',
+            borderColor: 'rgba(0, 123, 255, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Lines of Code (in hundreds)'
+                }
+            }
+        }
+    }
+});
+
+function updateChart() {
+    const progressData = new Array(12).fill(0);
+    codeData.forEach(({ date }) => {
+        const month = date.getMonth();
+        progressData[month] += 1;
+    });
+
+    codingProgressChart.data.datasets[0].data = progressData.map(count => count * 0.5);
+    codingProgressChart.update();
+}
+
+// Set up date and time display
+const updateDateTime = () => {
+    const now = new Date();
+    document.getElementById('datetime').innerHTML = now.toLocaleString('en-GB', { timeZone: 'Africa/Nairobi' });
+};
+setInterval(updateDateTime, 1000);
+
+// Save chart as image at the end of the year
+const saveChartAsImage = () => {
+    const link = document.createElement('a');
+    link.download = 'coding-progress.png';
+    link.href = codingProgressChart.toBase64Image();
+    link.click();
+};
+
+// Reset chart data and save image at the end of the year
+const checkEndOfYear = () => {
+    const now = new Date();
+    if (now.getMonth() === 0 && now.getDate() === 1 && now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) {
+        saveChartAsImage();
+        codeData.length = 0; // Clear code data
+        codingProgressChart.data.datasets[0].data = new Array(12).fill(0);
+        codingProgressChart.update();
+    }
+};
+setInterval(checkEndOfYear, 1000);
+
+// Contact information movement
+window.addEventListener('scroll', () => {
+    const contactInfo = document.getElementById('contact-info');
+    if (window.scrollY > 100) {
+        contactInfo.classList.add('show');
+        contactInfo.classList.remove('hide');
+    } else {
+        contactInfo.classList.add('hide');
+        contactInfo.classList.remove('show');
+    }
+});
+
+    </script>
+</body>
+</html>

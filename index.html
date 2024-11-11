@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celesta Kim - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Pop-up styling */
+        .popup {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: popup 1s ease-in-out;
+            z-index: 1000;
+        }
+        @keyframes popup {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        .popup p {
+            margin: 0 0 10px 0;
+            font-size: 1em;
+        }
+        .popup button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .popup button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="index.html" style="color: red;">Home &#9662;</a>
+                    <ul class="dropdown-content">
+                        <li><a href="IMAGES/MY CV.pdf" download class="parallelogram">Download CV (PDF)</a></li>
+                        <li><a href="IMAGES/CV.png" download class="parallelogram">Download CV (PNG)</a></li>
+                    </ul>
+                </li>
+                <li><a href="ABOUT.html" style="color: red;">About</a></li>
+                <li><a href="web.html" style="color: red;">Projects</a></li>
+                <li><a href="CHECK .html" style="color: red;">Skills</a></li>
+                <li><a href="contact.html" style="color: red;">Contact</a></li>
+                <li><a href="progress.html" style="color: red;">≡</a></li>
+                <li class="dropdown explore-container">
+                    <a href="#" class="explore">Explore &#9656;</a>
+                    <ul class="dropdown-content">
+                        <li> <a href="https://youtu.be/7beIAyjhWKU?si=wyt_7E-sB_jUtk3V" class="parallelogram" target="_blank">Play Video</a> </li>
+                        <li><a href="civil.html" class="parallelogram">Check other Skills</a></li>
+                    </ul>
+                </li>
+                <li class="get-started-container">
+                    <a href="get-started.html" class="get-started">Get Started</a>
+                   
+                </li>
+            </ul>
+        </nav>
+        <div class="header-animation">
+            <video class="background-video" autoplay muted loop>
+                <source src="IMAGES/1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="welcome-text">
+                <h1>Hello, I'm Kim!</h1>
+                <h2>Discover My Journey</h2>
+                <h3>Passionate About GIS</h3>
+                
+            </div>
+        </div>
+    </header>
+
+    <!-- New Section for Followers Count -->
+    <section class="followers-count">
+        <div class="count" data-target="10000">0</div>
+        <p> YouTube Followers</p>
+        <div class="count" data-target="500">0</div>
+        <p> LinkedIn Followers</p>
+        <div class="count" data-target="1000">0</div>
+        <p> Followers on X</p>
+        <div class="count" data-target="2000">0</div>
+        <p> Facebook Followers</p>
+        <div class="count" data-target="6000">0</div>
+        <p> Instagram Followers</p>
+    </section>
+
+    <main>
+        <div class="video-container">
+            <iframe width="162" height="130" src="https://www.youtube.com/embed/zzTutsdbKMs?si=CgN2-M3yy-ueE1U8" frameborder="0" allowfullscreen></iframe>
+            <iframe width="162" height="130" src="https://www.youtube.com/embed/7Ag0M4SYpOs?si=a6-dUuinr2vcxjBU" frameborder="0" allowfullscreen></iframe>
+            <iframe width="162" height="130" src="https://www.youtube.com/embed/zzTutsdbKMs?si=CgN2-M3yy-ueE1U8" frameborder="0" allowfullscreen></iframe>
+            <iframe width="162" height="130" src="https://www.youtube.com/embed/7Ag0M4SYpOs?si=a6-dUuinr2vcxjBU" frameborder="0" allowfullscreen></iframe> <iframe width="162" height="130" src="https://www.youtube.com/embed/zzTutsdbKMs?si=CgN2-M3yy-ueE1U8" frameborder="0" allowfullscreen></iframe>
+            <iframe width="162" height="130" src="https://www.youtube.com/embed/7Ag0M4SYpOs?si=a6-dUuinr2vcxjBU" frameborder="0" allowfullscreen></iframe>
+            
+        </div>
+    </main>
+
+    <!-- New Footer Section -->
+    <footer class="footer">
+        <p>Call Now: <a href="contact.html" style="text-decoration: underline;">contact us</a></p>
+        <p>Stay Connected: <a href="progress.html" style="text-decoration: underline;">progress</a></p>
+        <p>learn of our project: <a href="project.html" style="text-decoration: underline;"> awaiting projects </a></p>
+        <p> Addittional skills: <a href="civil.html" style="text-decoration: underline;">civil available projects </a></p>
+        <p>subscribe please: <a href="index.html" style="text-decoration: underline;">to our youtube channel</a></p>
+    </footer>
+
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeVideo()">&times;</span>
+            <!--<video id="modalVideo" controls>
+                <source src="IMAGES/1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>-->
+        </div>
+    </div>
+
+    <!-- Pop-up for YouTube Subscription -->
+    <div id="youtubePopup" class="popup">
+        <p>The little support you can gift me with is to subscribe here. It's free!</p>
+        <button onclick="subscribeToYouTube()">Subscribe to my YouTube Channel</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(showPopup, 3000); // Show the popup after 3 seconds
+
+            function showPopup() {
+                document.getElementById('youtubePopup').style.display = 'block';
+            }
+        });
+
+       function subscribeToYouTube() {
+          window.open('https://www.youtube.com/@CELESTAKIM_GIS', '_blank');
+       }
+
+        function closeVideo() {
+            document.getElementById('videoModal').style.display = 'none';
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

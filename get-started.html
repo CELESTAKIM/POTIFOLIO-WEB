@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Sign Up</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+            max-width: 1200px;
+        }
+        .login-container, .signup-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+        .login-container:hover, .signup-container:hover {
+            transform: scale(1.05);
+        }
+        .login-container h2, .signup-container h2 {
+            margin-bottom: 20px;
+        }
+        .login-container input, .signup-container input {
+            width: calc(100% - 24px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .login-container button, .signup-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-container button:hover, .signup-container button:hover {
+            background-color: #0056b3;
+        }
+        .terms, .signup-terms {
+            font-size: 0.9em;
+            color: #555;
+            text-align: left;
+        }
+        .terms input, .signup-terms input {
+            margin-right: 10px;
+        }
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        .forgot-password a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        .login-container {
+            background-color: #e6f7ff;
+        }
+        .signup-container {
+            background-color: #fff0e6;
+        }
+        .switch {
+            margin-top: 20px;
+        }
+        .switch a {
+            color: #007BFF;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .switch a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div class="login-container" id="login-container">
+            <h2>LOGIN</h2>
+            <input type="text" id="login-nickname" placeholder="Nickname" required><br>
+            <input type="email" id="login-email" placeholder="Email" required><br>
+            <input type="password" id="login-password" placeholder="Password" required><br>
+            <div class="form-group">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Remember Password</label>
+            </div>
+            <div class="forgot-password">
+                <a href="#">Forgot Password?</a>
+            </div>
+            <div class="terms">
+                <input type="checkbox" id="agree" required>
+                <label for="agree">
+                    To agree to terms and conditions your email will subscribe to CK YouTube channel and your username will be a comment here 
+                    <a href="https://youtu.be/7beIAyjhWKU?si=ByymGnHWHJPgCzdQ" target="_blank">this video</a>
+                </label>
+            </div>
+            <button onclick="login()">Login</button>
+            <div class="switch">
+                <a onclick="showSignup()">Sign Up</a>
+            </div>
+        </div>
+        
+        <!-- Sign Up Form -->
+        <div class="signup-container" id="signup-container" style="display: none;">
+            <h2>SIGN UP</h2>
+            <input type="text" id="signup-username" placeholder="Username" required><br>
+            <input type="text" id="signup-nickname" placeholder="Nickname" required><br>
+            <input type="text" id="signup-place" placeholder="Place" required><br>
+            <input type="text" id="signup-city" placeholder="City" required><br>
+            <input type="text" id="signup-country" placeholder="Country" required><br>
+            <input type="tel" id="signup-phone" placeholder="Phone Number/EMAIL" required><br>
+            <input type="password" id="signup-password" placeholder="Password" required><br>
+            <button onclick="signup()">Sign Up</button>
+            <div class="switch">
+                <a onclick="showLogin()">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function validateEmail(email) {
+            const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            return re.test(email);
+        }
+
+        function validatePhone(phone) {
+            const re = /^[0-9]{10,14}$/;
+            return re.test(phone);
+        }
+
+        function login() {
+            const nickname = document.getElementById('login-nickname').value;
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const remember = document.getElementById('remember').checked;
+            const agree = document.getElementById('agree').checked;
+
+            if (nickname === '') {
+                alert('Nickname is required');
+                return;
+            }
+            if (!validateEmail(email)) {
+                alert('Invalid email format');
+                return;
+            }
+            if (password === '') {
+                alert('Password is required');
+                return;
+            }
+            if (!agree) {
+                alert('You must agree to the terms and conditions');
+                return;
+            }
+
+            alert('Successfully Logged In');
+
+            // Save email to localStorage if "Remember Password" is checked
+            if (remember) {
+                localStorage.setItem('email', email);
+                localStorage.setItem('password', password);
+            }
+
+            // Mock subscribing to YouTube channel and adding comment
+            console.log(`Subscribing ${email} to YouTube channel`);
+            console.log(`Adding comment "${nickname}" to video`);
+
+            // Redirect to course.html
+            window.location.href = 'course.html';
+        }
+
+        function signup() {
+            const username = document.getElementById('signup-username').value;
+            const nickname = document.getElementById('signup-nickname').value;
+            const place = document.getElementById('signup-place').value;
+            const city = document.getElementById('signup-city').value;
+            const country = document.getElementById('signup-country').value;
+            const phone = document.getElementById('signup-phone').value;
+            const password = document.getElementById('signup-password').value;
+
+            if (username === '') {
+                alert('Username is required');
+                return;
+            }
+            if (nickname === '') {
+                alert('Nickname is required');
+                return;
+            }
+            if (place === '') {
+                alert('Place is required');
+                return;
+            }
+            if (city === '') {
+                alert('City is required');
+                return;
+            }
+            if (country === '') {
+                alert('Country is required');
+                return;
+            }
+            if (!validatePhone(phone)) {
+                alert('Invalid phone number');
+                return;
+            }
+            if (password === '') {
+                alert('Password is required');
+                return;
+            }
+
+            alert('Successfully Signed Up');
+
+            console.log(`User signed up with username: ${username}, nickname: ${nickname}, place: ${place}, city: ${city}, country: ${country}, phone: ${phone}`);
+
+            // Redirect to welcome page or home page
+            window.location.href = 'index.html';
+        }
+
+        // Show Signup form and hide Login form
+        function showSignup() {
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('signup-container').style.display = 'block';
+        }
+
+        // Show Login form and hide Signup form
+        function showLogin() {
+            document.getElementById('signup-container').style.display = 'none';
+            document.getElementById('login-container').style.display = 'block';
+        }
+
+        // Load saved email if available
+        window.onload = () => {
+            const savedEmail = localStorage.getItem('email');
+            const savedPassword = localStorage.getItem('password');
+            if (savedEmail) {
+                document.getElementById('login-email').value = savedEmail;
+                document.getElementById('login-password').value = savedPassword;
+                document.getElementById('remember').checked = true;
+            }
+        };
+    </script>
+</body>
+</html>

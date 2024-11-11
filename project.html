@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open - About This Project</title>
+    <style>
+        body {
+            background-color: chartreuse;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .pdf-container {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 100px);
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        .pdf-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .footer {
+            background-color: green;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            width: 100%;
+        }
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+        .footer p {
+            margin: 10px 0;
+        }
+        .footer-copy {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #ddd;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .nav-button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .nav-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h1>About This Project</h1>
+    <div class="pdf-container">
+        <iframe id="pdfViewer" src="IMAGES/yes.pdf#toolbar=0" type="application/pdf"></iframe>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="nav-button" id="prevPage" onclick="prevPage()">Previous Page</button>
+        <button class="nav-button" id="nextPage" onclick="nextPage()">Next Page</button>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>Call Now: <a href="contact.html" style="text-decoration: underline;">contact us</a></p>
+        <p>Stay Connected: <a href="login.html" style="text-decoration: underline;">log in</a></p>
+        <p>More About Us: <a href="courses.html" style="text-decoration: underline;">courses</a></p>
+        <div class="footer-copy">© 2023 CelestaKim23</div>
+    </footer>
+
+    <script>
+        const pdfViewer = document.getElementById('pdfViewer');
+        let currentPage = 1;
+
+        function prevPage() {
+            currentPage--;
+            updatePage();
+        }
+
+        function nextPage() {
+            currentPage++;
+            updatePage();
+        }
+
+        function updatePage() {
+            pdfViewer.src = `IMAGES/yes.pdf#page=${currentPage}&toolbar=0`;
+            document.getElementById('prevPage').disabled = currentPage === 1;
+        }
+
+        window.onload = () => {
+            updatePage();
+        };
+    </script>
+</body>
+</html>

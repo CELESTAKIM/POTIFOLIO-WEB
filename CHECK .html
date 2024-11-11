@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celesta Kim - Skills</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffcd07;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 99.5%;
+        }
+
+        header {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px 0;
+        }
+
+        .left, .right {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .left {
+            background-color: #e6f7ff;
+            overflow-y: auto;
+        }
+
+        .right {
+            background-color: #fff0e6;
+            overflow-y: auto;
+        }
+
+        .right section {
+            margin-bottom: 20px;
+        }
+
+        .right section h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2em;
+            color: #007BFF;
+        }
+
+        .right section a {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .right section a:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background-color: #007BFF;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            cursor: pointer;
+        }
+
+        .skills-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .skills-list li {
+            margin-bottom: 10px;
+        }
+
+        .skills-list a {
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .skills-list a:nth-child(1) {
+            background-color: #FF5733; /* Red for AutoCAD */
+        }
+
+        .skills-list a:nth-child(2) {
+            background-color: #33FF57; /* Green for ArcGIS */
+        }
+
+        .skills-list a:nth-child(3) {
+            background-color: #3357FF; /* Blue for ArcMap */
+        }
+
+        .skills-list a:nth-child(4) {
+            background-color: #F333FF; /* Purple for QGIS */
+        }
+
+        .skills-list a:nth-child(5) {
+            background-color: #FF33A1; /* Pink for ERDAS Imagine */
+        }
+
+        .skills-list a:nth-child(6) {
+            background-color: #33FFF2; /* Cyan for GEE */
+        }
+
+        .skills-list a:nth-child(7) {
+            background-color: #FFA233; /* Orange for USGS */
+        }
+
+        .skills-list a:nth-child(8) {
+            background-color: #33FFAF; /* Light green for PostgreSQL */
+        }
+
+        .skills-list a:nth-child(9) {
+            background-color: #FF5733; /* Light blue for HTML, CSS, JavaScript */
+        }
+
+        .more-skills button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            cursor: pointer;
+        }
+
+        .more-skills button:hover {
+            background-color: #0056b3;
+        }
+
+        .more-skills button:nth-child(1) {
+            background-color: #FFC107; /* Yellow for Python */
+        }
+
+        .more-skills button:nth-child(2) {
+            background-color: #DC3545; /* Red for Google Earth Pro */
+        }
+
+        .more-skills button:nth-child(3) {
+            background-color: #28A745; /* Green for Google Colab */
+        }
+
+        .more-skills button:nth-child(4) {
+            background-color: #17A2B8; /* Teal for CapCut */
+        }
+
+        .more-skills button:nth-child(5) {
+            background-color: #6610F2; /* Purple for OBS Studio */
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .right {
+                margin-top: 20px;
+            }
+        }
+
+        .full-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .full-screen img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .full-screen button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .full-screen button:hover {
+            background-color: #0056b3;
+        }
+
+        .map-canvas {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .map-canvas iframe {
+            width: 80%;
+            height: 80%;
+        }
+
+        .map-canvas button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .map-canvas button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SKILLS</h1>
+    </header>
+
+    <div class="container">
+        <!-- Left Section -->
+        <div class="left">
+            <h2>Skills</h2>
+            <ul class="skills-list">
+                <li><a href="https://youtu.be/zzTutsdbKMs?si=CgN2-M3yy-ueE1U8" target="_blank"><i class="fas fa-drafting-compass"></i> AutoCAD</a></li>
+                <li><a href="https://youtu.be/7Ag0M4SYpOs?si=a6-dUuinr2vcxjBU" target="_blank"><i class="fas fa-globe"></i> ArcGIS</a></li>
+                <li><a href="https://youtu.be/7belAyjhWKU?si=vEHz8CSK9H5sn5rx" target="_blank"><i class="fas fa-map"></i> ArcMap</a></li>
+                <li><a href="https://youtu.be/KwityP7H39A?si=4XEmp4UDrylo9OOy" target="_blank"><i class="fas fa-map-marked-alt"></i> QGIS</a></li>
+                <li><a href="https://youtu.be/4wxK63w7toI?si=vtcxgkiKkqiTgqBR" target="_blank"><i class="fas fa-image"></i> ERDAS Imagine</a></li>
+                <li><a href="https://youtu.be/i-iUbLMhd4Q?si=L2qV6RjLIST8hG5r" target="_blank"><i class="fas fa-cloud"></i> GEE</a></li>
+                <li><a href="https://youtu.be/Wap-KXPEPcM?si=eL4Rz3y65riBrfUe" target="_blank"><i class="fas fa-water"></i> USGS</a></li>
+                <li><a href="https://youtu.be/XAOk4c1h42Y?si=8Mm75BGIMW7hOTbL" target="_blank"><i class="fas fa-database"></i> PostgreSQL</a></li>
+                <li><a href="https://youtu.be/ZoMXt_wEOqs?si=Jw3uAmwSxGCEuI5o" target="_blank"><i class="fas fa-code"></i> HTML, CSS, JavaScript</a></li>
+            </ul>
+            <button onclick="toggleSkills()">Show More/Less</button>
+            <div id="moreSkills" style="display: none;" class="more-skills">
+                <ul class="skills-list">
+                    <li><button onclick="openImage('IMAGES/3.jpg')"><i class="fas fa-python"></i> Python</button></li>
+                    <li><button onclick="openImage('IMAGES/pro.png')"><i class="fas fa-globe"></i> Google Earth Pro</button></li>
+                    <li><button onclick="openImage('IMAGES/colab.png')"><i class="fas fa-laptop-code"></i> Google Colab</button></li>
+                    <li><button onclick="openImage('IMAGES/cap.png')"><i class="fas fa-cut"></i> CapCut</button></li>
+                    <li><button onclick="openImage('IMAGES/studio.png')"><i class="fas fa-video"></i> OBS Studio</button></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right">
+            <section>
+                <h3>Additional Skills</h3>
+                <a href="civil.html">Check Jobs We...</a>
+            </section>
+            <section>
+                <h3>My Hobbies</h3>
+                <a href="index.html">See My Hobbies</a>
+            </section>
+            <section>
+                <h3>My Location</h3>
+                <a href="#" onclick="showLocation()">My Location</a>
+            </section>
+        </div>
+    </div>
+
+    <footer onclick="showMapCanvas()">
+        <p>Locate Me Now</p>
+    </footer>
+
+    <div id="fullScreenImage" class="full-screen">
+        <button onclick="closeImage()">Back</button<img id="fullImage" src="" alt="Full Screen Image">
+        </div>
+    
+        <div id="mapCanvas" class="map-canvas">
+            <button onclick="closeMapCanvas()">Close</button>
+            <iframe src="https://www.google.com/maps?q=Dedan+Kimathi+University+of+Technology&output=embed"></iframe>
+        </div>
+    
+        <script>
+            function toggleSkills() {
+                var moreSkills = document.getElementById("moreSkills");
+                if (moreSkills.style.display === "none") {
+                    moreSkills.style.display = "block";
+                } else {
+                    moreSkills.style.display = "none";
+                }
+            }
+    
+            function openImage(src) {
+                document.getElementById("fullImage").src = src;
+                document.getElementById("fullScreenImage").style.display = "flex";
+            }
+    
+            function closeImage() {
+                document.getElementById("fullScreenImage").style.display = "none";
+            }
+    
+            function showLocation() {
+                window.open('https://www.google.com/maps?q=Dedan+Kimathi+University+of+Technology', '_blank');
+            }
+    
+            function showMapCanvas() {
+                document.getElementById("mapCanvas").style.display = "flex";
+            }
+    
+            function closeMapCanvas() {
+                document.getElementById("mapCanvas").style.display = "none";
+            }
+        </script>
+    </body>
+    </html>
+    

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses Offered</title>
+    <link rel="stylesheet" href="course.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Courses Offered</a>
+                    <div class="dropdown-content">
+                        <a href="#" class="parallelogram" data-course="GIS">GIS</a>
+                        <a href="#" class="parallelogram" data-course="Cartography">Cartography</a>
+                        <a href="#" class="parallelogram" data-course="RS">RS</a>
+                        <!--<a href="#" class="parallelogram" data-course="GIS_Programming">GIS Programming</a>
+                        <a href="#" class="parallelogram" data-course="Communication_Skills">Communication Skills</a>>-->
+                    </div>
+                    <button class="parallelogram" data-course="GISProgramming">GIS Programming</button>
+                    <button class="parallelogram" data-course="CommunicationSkills">Communication Skills</button>
+                </li>
+            </ul>
+        </nav>
+       
+    </header>
+
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup-content" id="popup-content">
+            <h2 id="course-title"></h2>
+            <div id="questions-container">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            <button id="show-answers">Show Answers</button>
+            <div id="answers-container" style="display: none;">
+                <!-- Answers will be dynamically inserted here -->
+            </div>
+            <button id="enroll-button">Enroll to Projects</button>
+            <button id="close-popup">Close</button>
+        </div>
+    </div>
+
+    <script src="course.js"></script>
+</body>
+</html>

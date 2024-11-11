@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Celesta Kim</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .about-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .about-section {
+            width: 45%;
+            height: 150px;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            overflow: hidden;
+            transition: height 0.3s ease, background-color 0.3s ease;
+            animation: fadeInOut 2s infinite;
+        }
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .about-section.collapsed {
+            height: 100px;
+        }
+        .about-section p {
+            margin: 0;
+        }
+        .about-section.expanded {
+            height: auto;
+        }
+        #whoIam { background-color: #1abc9c; }
+        #expertGuidance { background-color: #3498db; }
+        #whyChooseMe { background-color: #e74c3c; }
+        #joinGISRevolution { background-color: #9b59b6; }
+        .about-section.collapsed p.partial {
+            display: block;
+        }
+        .about-section.collapsed p.full {
+            display: none;
+        }
+        .about-section.expanded p.partial {
+            display: none;
+        }
+        .about-section.expanded p.full {
+            display: block;
+        }
+        .about-section p.important {
+            font-weight: bold;
+        }
+        .about-section p.important.red { color: red; }
+        .about-section p.important.green { color: green; }
+        .about-section p.important.yellow { color: yellow; }
+        .about-section p.important.gold { color: gold; }
+        @media (max-width: 768px) {
+            .about-section {
+                width: 100%;
+            }
+        }
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .contact-button {
+            background-color: #fff;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        .contact-button:hover {
+            background-color: #ddd;
+        }
+        .contact-button img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        .footer {
+            background-color: green;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            width: 100%;
+        }
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+        .footer p {
+            margin: 10px 0;
+        }
+        .footer-copy {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #ddd;
+        }
+    </style>
+    <script>
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.classList.toggle('expanded');
+            section.classList.toggle('collapsed');
+        }
+    </script>
+</head>
+<body>
+    <div class="about-container">
+        <div id="whoIam" class="about-section collapsed" onclick="toggleSection('whoIam')">
+            <h3>Who I Am</h3>
+            <p class="partial">Hello there! I'm Celesta Kim, a passionate second-year student...</p>
+            <p class="full">Hello there! I'm Celesta Kim, a passionate second-year student with a deep love for <span class="important green">Geographic Information Systems (GIS)</span> and related technologies. As I pursue my studies, I'm also dedicated to sharing my knowledge and helping others navigate the fascinating world of spatial analysis and data visualization.</p>
+        </div>
+        <div id="expertGuidance" class="about-section collapsed" onclick="toggleSection('expertGuidance')">
+            <h3>Expert Guidance</h3>
+            <p class="partial">Join me on a journey to unlock the full potential of industry-leading software...</p>
+            <p class="full">Join me on a journey to unlock the full potential of industry-leading software and technologies:<br/><br/>
+                <strong class="important red">ArcMap & ArcGIS Pro:</strong> Delve into advanced mapping techniques and spatial data analysis with ESRI's premier GIS platforms.<br/>
+                <strong class="important green">ERDAS IMAGINE & ENVI:</strong> Transform satellite imagery and aerial photos into actionable insights with cutting-edge remote sensing tools.<br/>
+                <strong class="important yellow">AutoCAD & ADRCCAD:</strong> Perfect your design and drafting skills with precise, professional-grade CAD software.<br/>
+                <strong class="important gold">Google Earth Engine (GEE):</strong> Leverage the power of cloud computing for large-scale geospatial analysis.<br/>
+                <strong class="important red">Programming & Data Analysis:</strong> Master Python, JavaScript, SQL, and more to automate tasks, analyze data, and create custom GIS applications.<br/>
+                <strong class="important green">Office Suite:</strong> Enhance your presentations and reports with powerful tips for Excel, Word, and PowerPoint.</p>
+        </div>
+        <div id="whyChooseMe" class="about-section collapsed" onclick="toggleSection('whyChooseMe')">
+            <h3>Why Choose Me</h3>
+            <p class="partial">As a dedicated student and budding GIS professional, I bring both fresh academic insights...</p>
+            <p class="full">As a dedicated student and budding GIS professional, I bring both fresh academic insights and practical experience to each lesson. My goal is to make complex concepts approachable and fun, ensuring you gain the confidence to tackle any GIS challenge. Here’s what you can expect from my tutorials:<br/><br/>
+                <strong class="important red">Clear, Step-by-Step Instructions:</strong> Easy-to-follow guides that help you build skills progressively.<br/>
+                <strong class="important green">Real-World Applications:</strong> Practical projects and examples that demonstrate how to apply your knowledge in real-world scenarios.<br/>
+                <strong class="important yellow">Community Support:</strong> Join a vibrant community of learners who share your passion for GIS and geospatial technologies.</p>
+        </div>
+        <div id="joinGISRevolution" class="about-section collapsed" onclick="toggleSection('joinGISRevolution')">
+            <h3>Join the GIS Revolution</h3>
+            <p class="partial">Whether you’re looking to advance your career, explore new technologies, or simply...</p>
+            <p class="full">Whether you’re looking to advance your career, explore new technologies, or simply satisfy your curiosity, my tutorials are your gateway to success in the GIS field. Subscribe to my YouTube channel, follow along with detailed tutorials, and become part of a community that’s transforming the world with spatial data.</p>
+        </div>
+    </div>
+    
+    <div class="contact-buttons">
+        <a class="contact-button" href="https://api.whatsapp.com/send?phone=254702781490" target="_blank">
+            <img src="https://img.icons8.com/color/48/000000/whatsapp.png" alt="WhatsApp">
+            WhatsApp
+        </a>
+        <a class="contact-button" href="https://m.me/YOUR_FB_MESSENGER_ID" target="_blank">
+            <img src="https://img.icons8.com/color/48/000000/facebook-messenger.png" alt="Messenger">
+            Messenger
+        </a>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>Call Now: <a href="contact.html" style="text-decoration: underline;">contact us</a></p>
+        <p>Stay Connected: <a href="get-started.html" style="text-decoration: underline;">log in to our Courses</a></p>
+        <p>More About Us: <a href="civil.html" style="text-decoration: underline;">explore pat-time jobs </a></p>
+        <div class="footer-copy">© 2023 CelestaKim23</div>
+    </footer>
+</body>
+</html>

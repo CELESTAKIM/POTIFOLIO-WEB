@@ -46,6 +46,32 @@
         .popup button:hover {
             background-color: #0056b3;
         }
+        .header-animation {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+        .background-video {
+            width: 100%;
+            height: auto;
+        }
+        .welcome-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .followers-count {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .count {
+            font-size: 2em;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -73,7 +99,9 @@
                 </li>
                 <li class="get-started-container">
                     <a href="get-started.html" class="get-started">Get Started</a>
-                   
+                </li>
+                <li>
+                    <a href="youtube.html" style="color: red;" class="button">YouTube</a>
                 </li>
             </ul>
         </nav>
@@ -86,7 +114,6 @@
                 <h1>Hello, I'm Kim!</h1>
                 <h2>Discover My Journey</h2>
                 <h3>Passionate About GIS</h3>
-                
             </div>
         </div>
     </header>
@@ -94,15 +121,15 @@
     <!-- New Section for Followers Count -->
     <section class="followers-count">
         <div class="count" data-target="10000">0</div>
-        <p> YouTube Followers</p>
+        <p>YouTube Followers</p>
         <div class="count" data-target="500">0</div>
-        <p> LinkedIn Followers</p>
+        <p>LinkedIn Followers</p>
         <div class="count" data-target="1000">0</div>
-        <p> Followers on X</p>
+        <p>Followers on X</p>
         <div class="count" data-target="2000">0</div>
-        <p> Facebook Followers</p>
+        <p>Facebook Followers</p>
         <div class="count" data-target="6000">0</div>
-        <p> Instagram Followers</p>
+        <p>Instagram Followers</p>
     </section>
 
     <main>
@@ -110,9 +137,9 @@
             <iframe width="162" height="130" src="https://www.youtube.com/embed/zzTutsdbKMs?si=CgN2-M3yy-ueE1U8" frameborder="0" allowfullscreen></iframe>
             <iframe width="162" height="130" src="https://www.youtube.com/embed/7Ag0M4SYpOs?si=a6-dUuinr2vcxjBU" frameborder="0" allowfullscreen></iframe>
             <iframe width="162" height="130" src="https://www.youtube.com/embed/zzTutsdbKMs?si=CgN2-M3yy-ueE1U8" frameborder="0" allowfullscreen></iframe>
-            <iframe width="162" height="130" src="https://www.youtube.com/embed/7Ag0M4SYpOs?si=a6-dUuinr2vcxjBU" frameborder="0" allowfullscreen></iframe> <iframe width="162" height="130" src="https://www.youtube.com/embed/zzTutsdbKMs?si=CgN2-M3yy-ueE1U8" frameborder="0" allowfullscreen></iframe>
             <iframe width="162" height="130" src="https://www.youtube.com/embed/7Ag0M4SYpOs?si=a6-dUuinr2vcxjBU" frameborder="0" allowfullscreen></iframe>
-            
+            <iframe width="162" height="130" src="https://www.youtube.com/embed/zzTutsdbKMs?si=CgN2-M3yy-ueE1U8" frameborder="0" allowfullscreen></iframe>
+            <iframe width="162" height="130" src="https://www.youtube.com/embed/7Ag0M4SYpOs?si=a6-dUuinr2vcxjBU" frameborder="0" allowfullscreen></iframe>
         </div>
     </main>
 
@@ -120,9 +147,9 @@
     <footer class="footer">
         <p>Call Now: <a href="contact.html" style="text-decoration: underline;">contact us</a></p>
         <p>Stay Connected: <a href="progress.html" style="text-decoration: underline;">progress</a></p>
-        <p>learn of our project: <a href="project.html" style="text-decoration: underline;"> awaiting projects </a></p>
-        <p> Addittional skills: <a href="civil.html" style="text-decoration: underline;">civil available projects </a></p>
-        <p>subscribe please: <a href="index.html" style="text-decoration: underline;">to our youtube channel</a></p>
+        <p>Learn of our project: <a href="project.html" style="text-decoration: underline;">awaiting projects</a></p>
+        <p>Additional skills: <a href="civil.html" style="text-decoration: underline;">civil available projects</a></p>
+        <p>Subscribe please: <a href="index.html" style="text-decoration: underline;">to our YouTube channel</a></p>
     </footer>
 
     <div id="videoModal" class="modal">
@@ -141,23 +168,56 @@
         <button onclick="subscribeToYouTube()">Subscribe to my YouTube Channel</button>
     </div>
 
+    <!-- Script to show pop-up and handle YouTube subscription -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(showPopup, 3000); // Show the popup after 3 seconds
+            setTimeout(showPopup, 3000); // Show the pop-up after 3 seconds
 
             function showPopup() {
                 document.getElementById('youtubePopup').style.display = 'block';
             }
         });
 
-       function subscribeToYouTube() {
-          window.open('https://www.youtube.com/@CELESTAKIM_GIS', '_blank');
-       }
+        function subscribeToYouTube() {
+            window.open('https://www.youtube.com/@CELESTAKIM_GIS', '_blank');
+        }
 
         function closeVideo() {
             document.getElementById('videoModal').style.display = 'none';
         }
     </script>
     <script src="script.js"></script>
+
+    <!-- LinkedIn Followers Count Script -->
+    <script>
+               async function fetchLinkedInFollowers() {
+            const accessToken = 'YOUR_LINKEDIN_ACCESS_TOKEN'; // Replace with your LinkedIn access token
+            const profileUrl = 'https://api.linkedin.com/v2/me';
+            const followersUrl = 'https://api.linkedin.com/v2/organizationFollowerStatistics?q=organizationalEntity&organizationalEntity=urn:li:organization:YOUR_ORGANIZATION_ID'; // Replace with your LinkedIn organization ID
+            
+            try {
+                // Fetch profile data
+                const profileResponse = await fetch(profileUrl, {
+                    headers: { 'Authorization': `Bearer ${accessToken}` }
+                });
+                const profileData = await profileResponse.json();
+
+                // Fetch followers count
+                const followersResponse = await fetch(followersUrl, {
+                    headers: { 'Authorization': `Bearer ${accessToken}` }
+                });
+                const followersData = await followersResponse.json();
+
+                const followerCount = followersData.elements[0]['followerCounts.organicFollowerCount'];
+                document.querySelector('.followers-count .count:nth-child(4)').innerText = followerCount;
+
+            } catch (error) {
+                console.error('Error fetching LinkedIn followers:', error);
+                document.querySelector('.followers-count .count:nth-child(4)').innerText = 'Error';
+            }
+        }
+
+        window.onload = fetchLinkedInFollowers;
+    </script>
 </body>
 </html>

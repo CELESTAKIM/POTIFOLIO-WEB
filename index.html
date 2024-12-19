@@ -100,9 +100,6 @@
                 <li class="get-started-container">
                     <a href="get-started.html" class="get-started">Get Started</a>
                 </li>
-                <li>
-                    <a href="youtube.html" style="color: red;" class="button">YouTube</a>
-                </li>
             </ul>
         </nav>
         <div class="header-animation">
@@ -143,22 +140,24 @@
         </div>
     </main>
 
+    <section id="youtube">
+        <!-- YouTube Section -->
+        <h2>YouTube Channel</h2>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed?listType=user_uploads&list=CELESTAKIM_GIS" frameborder="0" allowfullscreen></iframe>
+    </section>
+
     <!-- New Footer Section -->
     <footer class="footer">
         <p>Call Now: <a href="contact.html" style="text-decoration: underline;">contact us</a></p>
         <p>Stay Connected: <a href="progress.html" style="text-decoration: underline;">progress</a></p>
         <p>Learn of our project: <a href="project.html" style="text-decoration: underline;">awaiting projects</a></p>
         <p>Additional skills: <a href="civil.html" style="text-decoration: underline;">civil available projects</a></p>
-        <p>Subscribe please: <a href="index.html" style="text-decoration: underline;">to our YouTube channel</a></p>
+        <p>Subscribe please: <a href="https://www.youtube.com/@CELESTAKIM_GIS" style="text-decoration: underline;">to our YouTube channel</a></p>
     </footer>
 
     <div id="videoModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeVideo()">&times;</span>
-            <!--<video id="modalVideo" controls>
-                <source src="IMAGES/1.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>-->
         </div>
     </div>
 
@@ -185,39 +184,37 @@
         function closeVideo() {
             document.getElementById('videoModal').style.display = 'none';
         }
-    </script>
-    <script src="script.js"></script>
 
-    <!-- LinkedIn Followers Count Script -->
-    <script>
-               async function fetchLinkedInFollowers() {
-            const accessToken = 'YOUR_LINKEDIN_ACCESS_TOKEN'; // Replace with your LinkedIn access token
-            const profileUrl = 'https://api.linkedin.com/v2/me';
-            const followersUrl = 'https://api.linkedin.com/v2/organizationFollowerStatistics?q=organizationalEntity&organizationalEntity=urn:li:organization:YOUR_ORGANIZATION_ID'; // Replace with your LinkedIn organization ID
-            
-            try {
-                // Fetch profile data
-                const profileResponse = await fetch(profileUrl, {
-                    headers: { 'Authorization': `Bearer ${accessToken}` }
-                });
-                const profileData = await profileResponse.json();
+        async function fetchLinkedInFollowers() {
+                const accessToken = 'YOUR_LINKEDIN_ACCESS_TOKEN'; // Replace with your LinkedIn access token
+                const profileUrl = 'https://api.linkedin.com/v2/me';
+                const followersUrl = 'https://api.linkedin.com/v2/organizationFollowerStatistics?q=organizationalEntity&organizationalEntity=urn:li:organization:YOUR_ORGANIZATION_ID'; // Replace with your LinkedIn organization ID
 
-                // Fetch followers count
-                const followersResponse = await fetch(followersUrl, {
-                    headers: { 'Authorization': `Bearer ${accessToken}` }
-                });
-                const followersData = await followersResponse.json();
+                try {
+                    // Fetch profile data
+                    const profileResponse = await fetch(profileUrl, {
+                        headers: { 'Authorization': `Bearer ${accessToken}` }
+                    });
+                    const profileData = await profileResponse.json();
 
-                const followerCount = followersData.elements[0]['followerCounts.organicFollowerCount'];
-                document.querySelector('.followers-count .count:nth-child(4)').innerText = followerCount;
+                    // Fetch followers count
+                    const followersResponse = await fetch(followersUrl, {
+                        headers: { 'Authorization': `Bearer ${accessToken}` }
+                    });
+                    const followersData = await followersResponse.json();
 
-            } catch (error) {
-                console.error('Error fetching LinkedIn followers:', error);
-                document.querySelector('.followers-count .count:nth-child(4)').innerText = 'Error';
+                    const followerCount = followersData.elements[0]['followerCounts.organicFollowerCount'];
+                    document.querySelector('.followers-count .count:nth-child(4)').innerText = followerCount;
+
+                } catch (error) {
+                    console.error('Error fetching LinkedIn followers:', error);
+                    document.querySelector('.followers-count .count:nth-child(4)').innerText = 'Error';
+                }
             }
-        }
 
-        window.onload = fetchLinkedInFollowers;
-    </script>
-</body>
+            window.onload = function() {
+                fetchLinkedInFollowers();
+            };
+        </script>
+    </body>
 </html>

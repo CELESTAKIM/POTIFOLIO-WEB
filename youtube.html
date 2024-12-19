@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Subscriber and Viewer Count</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .logo {
+            width: 20%;
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            font-size: 3vw;
+            margin-bottom: 20px;
+        }
+        .box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #fff;
+            padding: 20px;
+        }
+        .value {
+            text-align: left;
+        }
+        .label {
+            text-align: right;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 2vw;
+            cursor: pointer;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #e60000;
+        }
+        .copyright {
+            margin-top: 20px;
+            font-size: 1.5vw;
+        }
+    </style>
+    <script>
+        async function fetchYouTubeData() {
+            const apiKey = 'AIzaSyB4bf5IisfWxmgdKcZJDqkdI1nJKvSHoLQ';
+            const channelId = 'UCv1iHC3RNcL3lvMWKY4wfZA';
+            const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${apiKey}`;
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const subscribers = data.items[0].statistics.subscriberCount;
+                const views = data.items[0].statistics.viewCount;
+                
+                animateCount('subscribers', subscribers);
+                animateCount('viewers', views);
+            } catch (error) {
+                console.error('Error fetching YouTube data:', error);
+                document.getElementById('subscribers').innerText = 'Error';
+                document.getElementById('viewers').innerText = 'Error';
+            }
+        }
+
+        function animateCount(id, count) {
+            const element = document.getElementById(id);
+            let start = 0;
+            const end = parseInt(count);
+            const duration = 20000;
+            const increment = end / (duration / 100);
+
+            function updateCount() {
+                start += increment;
+                if (start < end) {
+                    element.innerText = Math.ceil(start);
+                    setTimeout(updateCount, 100);
+                } else {
+                    element.innerText = end.toLocaleString();
+                }
+            }
+
+            updateCount();
+        }
+
+        window.onload = fetchYouTubeData;
+    </script>
+</head>
+<body>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube" class="logo">
+    <div class="container">
+        <div class="box value">
+            <div id="subscribers">Loading...</div>
+        </div>
+        <div class="box label">subscribers+</div>
+        <div class="box value">
+            <div id="viewers">Loading...</div>
+        </div>
+        <div class="box label">viewers+</div>
+    </div>
+    <a href="https://www.youtube.com/@CELESTAKIM_GIS" target="_blank" class="button">Follow</a>
+    <div class="copyright">© 2024 Your Company Name</div>
+</body>
+</html>
